@@ -18,6 +18,8 @@ sourceSets {
 repositories { mavenCentral() }
 dependencies {
   implementation 'org.jetbrains:annotations:20.1.0'
+  // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params
+  testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.9.2'
   testImplementation 'junit:junit:4.12'
   testImplementation 'org.assertj:assertj-core:3.23.1'
 }
@@ -30,6 +32,12 @@ jar {
 }
 
 test {
+
+    filter {
+        //include all tests from Fuzzing package
+        includeTestsMatching "org.jetbrains.java.decompiler.FuzzingTest*"
+    }
+
     finalizedBy jacocoTestReport
 }
 
