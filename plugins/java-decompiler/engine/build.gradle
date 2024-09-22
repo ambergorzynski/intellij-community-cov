@@ -20,7 +20,7 @@ dependencies {
   implementation 'org.jetbrains:annotations:20.1.0'
   // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params
   testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.9.2'
-  testImplementation 'junit:junit:4.12'
+  //testImplementation 'junit:junit:4.12'
   testImplementation 'org.assertj:assertj-core:3.23.1'
 }
 
@@ -32,10 +32,12 @@ jar {
 }
 
 test {
+    useJUnitPlatform()
 
     filter {
         //include all tests from Fuzzing package
         includeTestsMatching "org.jetbrains.java.decompiler.FuzzingTest*"
+        //includeTestsMatching decompile
     }
 
     finalizedBy jacocoTestReport
@@ -45,6 +47,8 @@ jacoco {
     toolVersion = "0.8.12"
     reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
 }
+
+
 jacocoTestReport {
     reports {
         xml.required = false
