@@ -54,15 +54,11 @@ public class FuzzingTest {
     fixture = null;
   }
 
-  //@Test public void testPrimitiveNarrowing() { doTest("pkg/TestPrimitiveNarrowing"); }
-
-  //@ParameterizedTest(name = "[{index}] {0}")
+  @ParameterizedTest(name = "[{index}] {0}")
+  @FuzzerClassFileTestDataSource("fuzzer_classes.xml")
   //@FuzzerClassFileTestDataSource("/data/dev/fernflower/intellij-community-cov/plugins/java-decompiler/engine/testData/fuzzer_classes.xml")
-  //@ParameterizedTest()
-  //@ValueSource(ints = {1,3,5})
-  @Test
-  public void decompile() {
-        Path classFilePath = Paths.get("/data/work/fuzzflesh/coverage/fuzzflesh_graph_gen/out/decompiler_input/graph_9_path_2");
+  public void decompile(Path classFilePath) {
+        System.out.println(classFilePath.toString());
         doTest(classFilePath);
         Assertions.assertTrue(true);
   }

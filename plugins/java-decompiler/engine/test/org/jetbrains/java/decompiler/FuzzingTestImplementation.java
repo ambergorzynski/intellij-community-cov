@@ -42,13 +42,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 class FuzzingTestImplementation {
 
-    private static final Path TEST_DATA_ROOT_DIR;
     private static final Path TEST_SPECS_DIR;
     static {
-        Path decompilationTestDir = Paths.get("engine");
-        TEST_DATA_ROOT_DIR = decompilationTestDir.resolve("testData");
-        TEST_SPECS_DIR = decompilationTestDir.resolve("testSpecs");
-
+        TEST_SPECS_DIR = Paths.get("testSpecs");
     }
 
     @Target(ElementType.METHOD)
@@ -72,13 +68,12 @@ class FuzzingTestImplementation {
         @Override
         public Stream<? extends Arguments> provideArguments(ExtensionContext context) throws Exception {
 
-            System.out.println("hello");
-
             List<Arguments> res = new ArrayList<>();
 
             DocumentBuilder db = dbf.newDocumentBuilder();
-            //Document doc = db.parse(TEST_SPECS_DIR.resolve(configFilePath).toString());            
-            Document doc = db.parse(configFilePath.toString());
+            Document doc = db.parse(TEST_SPECS_DIR.resolve(configFilePath).toString());
+
+            //Document doc = db.parse(configFilePath.toString());
 
             /* discover tests we want to do from config file; this is expected to match the
              * binary files in the relevant directory.
@@ -90,6 +85,9 @@ class FuzzingTestImplementation {
                 Element clazz = (Element)classes.item(x);
                 String classFilePath = clazz.getElementsByTagName("path").item(0).getTextContent();
                 String name = clazz.getElementsByTagName("name").item(0).getTextContent();
+                Path expectedSource = Paths.get(classFilePath);
+                res.add(Arguments.of(expectedSource));
+
             }
             return res.stream();
         }
