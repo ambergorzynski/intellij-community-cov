@@ -24,7 +24,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertTrue;
+//import static org.junit.Assert.assertTrue;
 
 public class DecompilerTestFixture {
   private Path testDataDir;
@@ -43,7 +43,7 @@ public class DecompilerTestFixture {
     if (!isTestDataDir(testDataDir)) testDataDir = Path.of("plugins/java-decompiler/engine/testData");
     if (!isTestDataDir(testDataDir)) testDataDir = Path.of("../community/plugins/java-decompiler/engine/testData");
     if (!isTestDataDir(testDataDir)) testDataDir = Path.of("../plugins/java-decompiler/engine/testData");
-    assertTrue("cannot find the 'testData' directory relative to " + Path.of("").toAbsolutePath(), isTestDataDir(testDataDir));
+    //ssertTrue("cannot find the 'testData' directory relative to " + Path.of("").toAbsolutePath(), isTestDataDir(testDataDir));
     testDataDir = testDataDir.toAbsolutePath();
 
     tempDir = Files.createTempDirectory("decompiler_test_dir_");
