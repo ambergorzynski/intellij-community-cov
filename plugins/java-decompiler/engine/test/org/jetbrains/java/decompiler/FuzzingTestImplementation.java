@@ -85,7 +85,7 @@ class FuzzingTestImplementation {
                 Element clazz = (Element)classes.item(x);
                 String classFilePath = clazz.getElementsByTagName("path").item(0).getTextContent();
                 String name = clazz.getElementsByTagName("name").item(0).getTextContent();
-                Path expectedSource = Paths.get(classFilePath);
+                Path expectedSource = Paths.get(classFilePath + "/" + name);
                 res.add(Arguments.of(expectedSource));
 
             }

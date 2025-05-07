@@ -56,7 +56,6 @@ public class FuzzingTest {
 
   @ParameterizedTest(name = "[{index}] {0}")
   @FuzzerClassFileTestDataSource("fuzzer_classes.xml")
-  //@FuzzerClassFileTestDataSource("/data/dev/fernflower/intellij-community-cov/plugins/java-decompiler/engine/testData/fuzzer_classes.xml")
   public void decompile(Path classFilePath) {
         System.out.println(classFilePath.toString());
         doTest(classFilePath);
@@ -65,18 +64,23 @@ public class FuzzingTest {
 
 
   private void doTest(Path classFilePath) {
+
     var decompiler = fixture.getDecompiler();
     
-    //var classFile = fixture.getTestDataDir().resolve("classes/" + testFile + ".class");
-    var classFile = classFilePath.resolve("TestCase.class");
+    var classFile = classFilePath.toFile();
 
+    /*
     for (var file : collectClasses(classFile)) {
       decompiler.addSource(file.toFile());
     }
+    */
+
+    decompiler.addSource(classFile);
 
     decompiler.decompileContext();
 
-    var decompiledFile = fixture.getTargetDir().resolve(classFile.getFileName().toString().replace(".class", ".java"));
+    var decompiledFile = fixture.getTargetDir().resolve(classFile.getName().toString().replace(".class", ".java"));
+    
     Assertions.assertTrue(Files.isRegularFile(decompiledFile));
   }
 
