@@ -80,7 +80,9 @@ public class FuzzingTest {
     decompiler.decompileContext();
 
     var decompiledFile = fixture.getTargetDir().resolve(classFile.getName().toString().replace(".class", ".java"));
-    
+    System.out.println("hello");
+    System.out.println(decompiledFile);
+
     Assertions.assertTrue(Files.isRegularFile(decompiledFile));
   }
 
